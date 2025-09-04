@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dynamic-CSS</title>
+  <style>
+    :root {
+      --default-font-size: 55px;
+      --default-font-family: system-ui, sans-serif;
+      --default-color: black;
+    }
+
+    body {
+      font-family: system-ui, sans-serif;
+      background: #f8fafc;
+      padding: 2rem;
+      color: #111;
+    }
+
+    .text-here {
+      font-size: var(--default-font-size);
+      font-family: var(--default-font-family);
+      color: var(--default-color);
+      margin-bottom: 20px;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+    }
+
+    input, select, button {
+      padding: 8px 12px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      cursor: pointer;
+      background: #2563eb;
+      color: white;
+      border: none;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #1e40af;
+    }
+
+    #css-props {
+      font-family: monospace;
+      background: #f1f5f9;
+      padding: 10px;
+      border-radius: 6px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="text-here" id="text-container">This is some example text</div>
+
+  <div class="controls">
+    <!-- Color input -->
+    <input type="text" id="colorbox" placeholder="Enter color (e.g. red or #ff0000)">
+    <button id="colorchange">Change Colour</button>
+
+    <!-- Font size range -->
+    <label for="fontsize">Font Size:</label>
+    <input type="range" id="fontsize" min="10" max="100" value="55">
+    <span id="fontsize-val">55px</span>
+
+    <!-- Style buttons -->
+    <button id="italic" class="stylebt">Italics</button>
+    <button id="underline" class="stylebt">Underline</button>
+    <button id="bold" class="stylebt">Bold</button>
+
+    <!-- Font family dropdown -->
+    <label for="list">Font Family:</label>
+    <select id="list">
+      <option value="serif">Serif</option>
+      <option value="sans-serif" selected>Sans-Serif</option>
+      <option value="monospace">Monospace</option>
+      <option value="cursive">Cursive</option>
+      <option value="fantasy">Fantasy</option>
+    </select>
+
+    <!-- Get CSS button -->
+    <button id="getstyle">Get CSS</button>
+  </div>
+
+  <p id="css-props"></p>
+
+  <script>
+    const textDiv = document.getElementById("text-container");
+    const fontSizeVal = document.getElementById("fontsize-val");
+
+    // Change color
+    document.getElementById("colorchange").onclick = function () {
+      const color = document.getElementById("colorbox").value;
+      if (color) textDiv.style.color = color;
+    };
+
+    // Change font size
+    document.getElementById("fontsize").oninput = function () {
+      const size = this.value;
+      textDiv.style.fontSize = size + "px";
+      fontSizeVal.textContent = size + "px";
+    };
+
+    // Toggle italic
+    document.getElementById("italic").onclick = function () {
+      textDiv.style.fontStyle =
+        textDiv.style.fontStyle === "italic" ? "normal" : "italic";
+    };
+
+    // Toggle underline
+    document.getElementById("underline").onclick = function () {
+      textDiv.style.textDecoration =
+        textDiv.style.textDecoration === "underline" ? "none" : "underline";
+    };
+
+    // Toggle bold
+    document.getElementById("bold").onclick = function () {
+      textDiv.style.fontWeight =
+        textDiv.style.fontWeight === "bold" ? "normal" : "bold";
+    };
+
+    // Change font family
+    document.getElementById("list").onchange = function () {
+      textDiv.style.fontFamily = this.value;
+    };
+
+    // Show applied CSS styles
+    document.getElementById("getstyle").onclick = function () {
+      const style = window.getComputedStyle(textDiv);
+      const cssText = `
+color: ${style.color};
+font-size: ${style.fontSize};
+font-family: ${style.fontFamily};
+text-decoration: ${style.textDecoration};
+font-style: ${style.fontStyle};
+font-weight: ${style.fontWeight};
+      `;
+      document.getElementById("css-props").textContent = cssText.trim();
+    };
+  </script>
+
+</body>
+</html>

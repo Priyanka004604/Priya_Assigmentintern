@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Booking App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    header {
+      background-color: #333;
+      color: rgb(186, 211, 44);
+      padding: 15px;
+      text-align: center;
+    }
+
+    .page {
+      padding: 20px;
+    }
+
+    .movie-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .movie {
+      border: 1px solid #5c4343;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .movie img {
+      width: 150px;
+      height: 130px;
+      object-fit: cover;
+    }
+
+    .button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: rgb(245, 237, 237);
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+
+    form input {
+      display: block;
+      margin: 10px 0;
+      padding: 8px;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .confirmation {
+      background-color: #598f59;
+      padding: 20px;
+      border: 2px solid #00b300;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Movie Booking </h1>
+  </header>
+
+  <div class="page" id="movie-list">
+    <h2>Select a Movie</h2>
+    <div class="movie-grid" id="movieGrid"></div>
+  </div>
+
+  <div class="page hidden" id="movie-details">
+    <h2 id="movieTitle">Movie Title</h2>
+    <img id="movieImg" src="" alt="Movie Poster" style="width:200px; height:300px;">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+    <button class="button" onclick="showForm()">Book Seat</button>
+  </div>
+
+  <div class="page hidden" id="booking-form">
+    <h2>Book Your Seat</h2>
+    <form onsubmit="submitForm(event)">
+      <input type="text" id="name" placeholder="Your Name" required>
+      <input type="email" id="email" placeholder="Your Email" required>
+      <input type="tel" id="mobile" placeholder="Your Mobile" required>
+      <button type="submit" class="button">Submit</button>
+    </form>
+  </div>
+
+  <div class="page hidden" id="confirmation">
+    <div class="confirmation">
+      <h2>Booking Confirmed!</h2>
+      <p><strong>Booking ID:</strong> <span id="bookingId"></span></p>
+      <p><strong>Name:</strong> <span id="confName"></span></p>
+      <p><strong>Email:</strong> <span id="confEmail"></span></p>
+      <p><strong>Mobile:</strong> <span id="confMobile"></span></p>
+    </div>
+  </div>
+
+  <script>
+    // Movie data
+    const movies = [
+      { title: "KGF", img: "Assets/KGF.jpeg"},
+      { title: "JAAT", img: "Assets/jaat.jpeg"},
+      { title: "PUSPA", img:"Assets/pushpa.jpeg" },
+      { title: "GABBAR", img: "Assets/Gabbar.jpeg"},
+      { title: "KAALA", img:"Assets/kala.jpeg" },
+      { title: "RAID", img:"Assets/RAID.jpeg" },
+      { title: "RAID2", img: "Assets/RAID2.jpeg" },
+      { title: "RAEES", img: "Assets/Raees.jpeg" },
+      { title: "PADMAVAT", img:"Assets/Padmavat.jpeg" },
+      { title: "ROCKSTAR", img: "Assets/rockstar.jpeg"},
+      { title: "KABIR SINGH", img:"Assets/Kabir singh.jpeg" },
+      { title: "BAGHI 3", img: "Assets/Baghi 3.jpeg" },
+      { title: "WAR", img:"Assets/war.jpeg"},
+      { title: "BHARAT", img: "Assets/bharat.jpeg" },
+      
+    ];
+
+    let selectedMovie = null;
+
+    // Populate movie grid
+    const grid = document.getElementById('movieGrid');
+    movies.forEach((movie, index) => {
+      const div = document.createElement('div');
+      div.className = 'movie';
+      div.innerHTML = `<img src="${movie.img}" alt="${movie.title}"><p>${movie.title}</p>`;
+      div.onclick = () => showDetails(index);
+      grid.appendChild(div);
+    });
+
+    function showDetails(index) {
+      selectedMovie = movies[index];
+      document.getElementById('movie-list').classList.add('hidden');
+      document.getElementById('movie-details').classList.remove('hidden');
+      document.getElementById('movieTitle').innerText = selectedMovie.title;
+      document.getElementById('movieImg').src = selectedMovie.img;
+    }
+
+    function showForm() {
+      document.getElementById('movie-details').classList.add('hidden');
+      document.getElementById('booking-form').classList.remove('hidden');
+    }
+
+    function submitForm(event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const mobile = document.getElementById('mobile').value;
+      const bookingId = "BK" + Math.floor(Math.random() * 1000000);
+
+      document.getElementById('confName').innerText = name;
+      document.getElementById('confEmail').innerText = email;
+      document.getElementById('confMobile').innerText = mobile;
+      document.getElementById('bookingId').innerText = bookingId;
+
+      document.getElementById('booking-form').classList.add('hidden');
+      document.getElementById('confirmation').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
