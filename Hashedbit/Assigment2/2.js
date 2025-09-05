@@ -1,19 +1,17 @@
-function calculate(num1,num2,op){
-    switch(op){
-        case'+':
-        return num1+num2;
-        case'-':
-        return num1-num2;
-        case'*':
-        return num1*num2;
-        case'/':
-        return num2 !== 0?num1 / num2 : 'num 2 cannot be 0';
-        default:
-        return 'enter valid operator';
+function sumOfProducts(n1, n2) {
+    let sum = 0;
+    
+    while (n1 > 0 || n2 > 0) {
+        let digit1 = n1 % 10;
+        let digit2 = n2 % 10;
+        sum += digit1 * digit2;
+        
+        n1 = Math.floor(n1 / 10);
+        n2 = Math.floor(n2 / 10);
     }
+    
+    return sum;
 }
-console.log(calculate(10,5,'add'));
-console.log(calculate(10,5,'subtract'));
-console.log(calculate(10,5,'multiply'));
-console.log(calculate(10,5,'divide'));
 
+console.log(sumOfProducts(6, 34)); 
+console.log(sumOfProducts(45, 36));

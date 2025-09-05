@@ -1,30 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Toggle Paragraph Visibility</title>
-  
+  <title>Div Creation</title>
+  <style>
+    .box {
+      margin: 10px 0;
+      padding: 8px;
+      background: #e0e0f8;
+      border-radius: 4px;
+    }
+    .box button { margin-left: 10px; }
+  </style>
 </head>
 <body>
+  <h2>Create a Div</h2>
+  <input type="text" id="text" placeholder="Type something">
+  <button id="create">Create Div</button>
 
-  <h1>I am a headline made with HTML</h1>
-  <br />
-  <p id="useless-paragraph">Useless paragraph.</p>
-  <br />
-  <button onclick="toggleVisibility()">Toggle Button</button>
+  <div id="container"></div>
 
   <script>
-    function toggleVisibility() {
-      const para = document.getElementById("useless-paragraph");
-      // Toggle display style
-      if (para.style.display === "none") {
-        para.style.display = "block"; // Show it
-      } else {
-        para.style.display = "none";  // Hide it
-      }
-    }
-  </script>
+    const createBtn = document.getElementById('create');
+    const input = document.getElementById('text');
+    const container = document.getElementById('container');
 
+    createBtn.addEventListener('click', () => {
+      const text = input.value.trim();
+      if (!text) return;
+      
+      const div = document.createElement('div');
+      div.className = 'box';
+      div.textContent = text;
+
+      const del = document.createElement('button');
+      del.textContent = 'Delete';
+      del.onclick = () => container.removeChild(div);
+
+      div.appendChild(del);
+      container.appendChild(div);
+
+      input.value = '';
+    });
+  </script>
 </body>
 </html>

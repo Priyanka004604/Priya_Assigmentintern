@@ -1,6 +1,6 @@
 const person = {
-  name: "Om",
-  age: 25,
+  name: "Priya",
+  age: 22,
   occupation: "Developer"
 };
 function greetPerson(obj) {

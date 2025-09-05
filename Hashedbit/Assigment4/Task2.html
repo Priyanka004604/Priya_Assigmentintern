@@ -1,62 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Div Creator</title>
-  <style>
-    body {
-      background-color: blueviolet;
-    }
-
-    #container {
-      padding: 10px;
-    }
-
-    .box {
-      border: 2px solid #444;
-      margin: 10px 0;
-      padding: 10px;
-      background-color: bisque;
-      box-shadow: 2px 2px 2px yellowgreen;
-      font-family: Arial, sans-serif;
-      color: rgba(4, 13, 20, 0.858);
-    }
-  </style>
+  <title>Hide/Show Paragraph</title>
 </head>
-
 <body>
-
-  <div id="container"></div>
+  <h2>Toggle Paragraph</h2>
+  <button id="toggle">Hide Paragraph</button>
+  <p id="para">Anushka Sharma is a celebrated Indian actress and producer, born on May 1, 1988, in Ayodhya, Uttar Pradesh. She made her Bollywood debut opposite Shah Rukh Khan in Rab Ne Bana Di Jodi (2008), which was a major hit and launched her into stardom
+</p>
 
   <script>
-    // Counter to track number of divs created
-    let divCounter = 0
+    const btn3 = document.getElementById('toggle');
+    const para = document.getElementById('para');
 
-    // Create and append a div with given dimensions and text
-    function createDiv(width, height, text) {
-      divCounter++;
-
-      const newDiv = document.createElement("div");
-      newDiv.className = "box";
-      newDiv.style.width = width + "px";
-      newDiv.style.height = height + "px";
-      newDiv.textContent = `Div ${divCounter}: ${text}`;
-
-      document.getElementById("container").appendChild(newDiv);
-    }
-
-    // Attach function to global scope so it can be used elsewhere
-    window.createDiv = createDiv;
-
-    // Example usage
-    createDiv(100, 100, "Hello, world!");
-    createDiv(150, 150, "Second box here");
-    createDiv(200, 200, "Third one!");
-    createDiv(250, 250, "hiii")
+    btn3.addEventListener('click', () => {
+      if (para.style.display === 'none') {
+        para.style.display = 'block';
+        btn3.textContent = 'Hide Paragraph';
+      } else {
+        para.style.display = 'none';
+        btn3.textContent = 'Show Paragraph';
+      }
+    });
   </script>
-
 </body>
-
 </html>

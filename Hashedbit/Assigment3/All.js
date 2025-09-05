@@ -82,7 +82,6 @@ function reverseString(str) {
   const result = str.split('').reverse().join('');
   console.log("Q10:", result);
 }
-
 // Q11: Average marks of students from subject objects
 function studentSubjectAverage() {
   const data = [
@@ -109,6 +108,8 @@ function studentSubjectAverage() {
 
   console.log("Q11:", result);
 }
+
+
 
 // ▶ Function Calls
 filterStates();
